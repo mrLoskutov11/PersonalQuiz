@@ -306,7 +306,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы – осьминог!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-Yi-Tt2">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы – осьминог!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-Yi-Tt2">
                                         <rect key="frame" x="83" y="68" width="122.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -326,12 +326,13 @@
                     <navigationItem key="navigationItem" title="Результат" id="kvi-wU-fJT">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="73c-wZ-ngI">
                             <connections>
-                                <action selector="doneButtonPressed:" destination="G8B-sK-US3" id="TCu-55-G9r"/>
+                                <action selector="doneBarButton:" destination="G8B-sK-US3" id="lpn-y7-TAs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="resultsOutlet" destination="kcd-9Y-SQk" id="dqQ-Q6-wP5"/>
+                        <outlet property="describeAnswer" destination="Mtg-Yi-Tt2" id="cv1-bH-J9q"/>
+                        <outlet property="resultOutlet" destination="RZb-ww-1bI" id="K3o-NS-zwd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZH6-hE-q9r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

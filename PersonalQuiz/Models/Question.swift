@@ -57,7 +57,7 @@ struct Answer {
     let animal: Animal
 }
 
-enum Animal: Character {
+enum Animal: String {
     case dog = "🐶"
     case cat = "🐱"
     case rabbit = "🐰"

@@ -15,11 +15,14 @@ class QuestionsViewController: UIViewController {
     @IBOutlet var singleButtons: [UIButton]!
     
     @IBOutlet var multipleStackView: UIStackView!
+    
     @IBOutlet var multipleLabels: [UILabel]!
     @IBOutlet var multipleSwitches: [UISwitch]!
     
     @IBOutlet var rangedStackView: UIStackView!
+    
     @IBOutlet var rangedLabels: [UILabel]!
+    
     @IBOutlet var rangedSlider: UISlider! {
         didSet {
             let answerCount = Float(currentAnswers.count - 1)
@@ -39,7 +42,13 @@ class QuestionsViewController: UIViewController {
         super.viewDidLoad()
         updateUI()
     }
-
+ 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let resultVC = segue.destination as? ResultViewController else { return }
+        resultVC.controlAnswers = answersChosen
+    }
+    
+    
     @IBAction func singleAnswerButtonPressed(_ sender: UIButton) {
         guard let buttonIndex = singleButtons.firstIndex(of: sender) else { return }
         let currentAnswer = currentAnswers[buttonIndex]
@@ -57,6 +66,13 @@ class QuestionsViewController: UIViewController {
         nextQuestion()
     }
     
+    private func showRangedStackView(with answers: [Answer]) {
+        rangedStackView.isHidden.toggle()
+        
+        rangedLabels.first?.text = answers.first?.title
+        rangedLabels.last?.text = answers.last?.title
+    }
+    
     @IBAction func rangedAnswerButtonPressed() {
         let index = lrintf(rangedSlider.value)
         answersChosen.append(currentAnswers[index])
@@ -71,26 +87,15 @@ class QuestionsViewController: UIViewController {
 // MARK: - Private Methods
 extension QuestionsViewController {
     private func updateUI() {
-        // Hide everything
         for stackView in [singleStackView, multipleStackView, rangedStackView] {
             stackView?.isHidden = true
         }
         
-        // Get current question
         let currentQuestion = questions[questionIndex]
-        
-        // Set current question for question label
         questionLabel.text = currentQuestion.title
-        
-        // Calculate progress
         let totalProgress = Float(questionIndex) / Float(questions.count)
-        
-        // Set progress for questionProgressView
         questionProgressView.setProgress(totalProgress, animated: true)
-        
-        // Set navigation title
         title = "Вопрос № \(questionIndex + 1) из \(questions.count)"
-        
         showCurrentAnswers(for: currentQuestion.responseType)
     }
     
@@ -116,13 +121,6 @@ extension QuestionsViewController {
         for (label, answer) in zip(multipleLabels, answers) {
             label.text = answer.title
         }
-    }
-    
-    private func showRangedStackView(with answers: [Answer]) {
-        rangedStackView.isHidden.toggle()
-        
-        rangedLabels.first?.text = answers.first?.title
-        rangedLabels.last?.text = answers.last?.title
     }
     
     private func nextQuestion() {
